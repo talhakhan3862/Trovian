@@ -1,2 +1,759 @@
-# Trovian
-An architectural design portfolio presenting academic, self-initiated, and conceptual projects across architecture, interiors, and urban design. The work explores form, context, and materiality through research-driven design and clear spatial narratives.
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TROVIAN | by Archi Trove</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display (Serif), Lato (Sans), JetBrains Mono (Code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #f0f0f0 1px, transparent 1px), linear-gradient(to bottom, #f0f0f0 1px, transparent 1px)"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Architectural Polish */
+        body {
+            background-color: #fcfcfc;
+            color: #1a1a1a;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card:hover .project-image {
+            transform: scale(1.03);
+        }
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 1px;
+            background: #000;
+            transition: width .3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        /* Loading Animation for AI */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Smooth Form Inputs */
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white relative">
+
+    <!-- Subtle Background Grid -->
+    <div class="fixed inset-0 bg-grid-pattern bg-grid pointer-events-none -z-10 opacity-60"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex justify-between items-center h-24">
+                <!-- Text Logo -->
+                <a href="#" class="flex flex-col group">
+                    <span class="font-serif text-3xl tracking-[0.2em] font-medium uppercase text-gray-900 leading-none">Trovian</span>
+                    <span class="text-[0.6rem] font-sans tracking-[0.3em] font-semibold text-gray-500 uppercase mt-1 group-hover:text-black transition-colors">by Archi Trove</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-12 text-xs tracking-[0.15em] uppercase font-medium text-gray-500">
+                    <a href="#work" class="nav-link hover:text-black transition-colors">Portfolio</a>
+                    <a href="#initiate" class="nav-link hover:text-black transition-colors">Start Project</a>
+                    <a href="#about" class="nav-link hover:text-black transition-colors">About</a>
+                    
+                    <!-- Call Action -->
+                    <a href="tel:+919970516725" class="flex items-center gap-2 border border-gray-200 px-5 py-2 hover:bg-black hover:text-white transition-all group rounded-full">
+                        <i class="ph-fill ph-phone group-hover:animate-pulse"></i>
+                        <span>Call</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-40 hidden flex-col justify-center items-center space-y-8 text-xl font-serif">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-3xl">
+                <i class="ph ph-x"></i>
+            </button>
+            <a href="#work" class="mobile-link">Portfolio</a>
+            <a href="#initiate" class="mobile-link">Start Project</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="tel:+919970516725" class="mobile-link flex items-center gap-2 text-emerald-600"><i class="ph-fill ph-phone"></i> Call Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-6xl text-center reveal active relative">
+            <!-- Decorative Lines -->
+            <div class="hidden lg:block absolute -left-20 top-0 h-full w-px bg-gray-200"></div>
+            <div class="hidden lg:block absolute -right-20 top-0 h-full w-px bg-gray-200"></div>
+
+            <!-- Tagline -->
+            <p class="text-xs md:text-sm tracking-[0.5em] text-gray-400 uppercase mb-8 font-light">
+                Curate <span class="mx-2 text-gray-300">•</span> Create <span class="mx-2 text-gray-300">•</span> Captivate
+            </p>
+            
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 text-gray-900">
+                Architecture Rooted in <br>
+                <span class="italic font-light text-gray-500">Culture</span>, Context & Concept
+            </h1>
+            <p class="max-w-xl mx-auto text-gray-600 leading-relaxed mb-12 font-light text-lg">
+                Trovian by Archi Trove is a curated collection of architectural narratives established in 2022. 
+                We craft spaces through clarity, form, and rigorous conceptual thought.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="#work" class="px-8 py-4 bg-black text-white text-xs tracking-[0.2em] uppercase hover:bg-gray-800 transition-colors">View Selected Works</a>
+                <a href="#initiate" class="px-8 py-4 border border-black text-black text-xs tracking-[0.2em] uppercase hover:bg-black hover:text-white transition-colors">Start Your Project</a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-300">
+            <i class="ph-light ph-arrow-down text-3xl"></i>
+        </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section id="work" class="py-32 bg-stone-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-gray-300 pb-8 reveal">
+                <div>
+                    <span class="font-mono text-xs text-gray-400 mb-2 block">/// PORTFOLIO</span>
+                    <h2 class="font-serif text-4xl text-gray-900">Selected Works</h2>
+                </div>
+                <p class="text-gray-500 text-xs mt-4 md:mt-0 tracking-widest uppercase">2022 — 2025 Collection</p>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+
+                <!-- Project 01 -->
+                <article class="project-card group reveal">
+                    <div class="overflow-hidden aspect-[4/3] bg-gray-200 mb-6 relative">
+                        <!-- Secondary Image (Visible on Hover) -->
+                        <img src="https://images.unsplash.com/photo-1629249767623-28b9cb030a5c?auto=format&fit=crop&q=80&w=800" 
+                             alt="Heritage Detail" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                        <!-- Primary Image (Fades out on Hover) -->
+                        <img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&q=80&w=800" 
+                             alt="Regional Heritage Centre" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:opacity-0">
+                        
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-widest z-10">Institutional</div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-serif text-2xl mb-2 group-hover:underline decoration-1 underline-offset-4">Regional Heritage Centre</h3>
+                            <p class="text-gray-500 font-light text-sm mb-4 line-clamp-2">A cultural campus interpreting Marathwada heritage with OAT, auditorium, and cottages.</p>
+                            <a href="https://www.behance.net/gallery/239593007/Regional-Heritage-Interpretation-and-Convention-Centre" target="_blank" class="inline-flex items-center text-xs font-bold tracking-widest uppercase hover:text-gray-600 transition-colors">
+                                View on Behance <i class="ph ph-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 02 -->
+                <article class="project-card group reveal">
+                    <div class="overflow-hidden aspect-[4/3] bg-gray-200 mb-6 relative">
+                        <!-- Secondary -->
+                        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=800" 
+                             alt="Interior Detail"
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                        <!-- Primary -->
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800" 
+                             alt="Residential Interior" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:opacity-0">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-widest z-10">Interior</div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl mb-2 group-hover:underline decoration-1 underline-offset-4">4BHK Row House</h3>
+                        <p class="text-gray-500 font-light text-sm mb-4 line-clamp-2">Clean planning and warm material palettes balancing usability with aesthetic refinement.</p>
+                        <a href="https://www.behance.net/gallery/239594767/Residential-Interior-Design" target="_blank" class="inline-flex items-center text-xs font-bold tracking-widest uppercase hover:text-gray-600 transition-colors">
+                            View on Behance <i class="ph ph-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 03 -->
+                <article class="project-card group reveal">
+                    <div class="overflow-hidden aspect-[4/3] bg-gray-200 mb-6 relative">
+                        <!-- Secondary -->
+                        <img src="https://images.unsplash.com/photo-1447619297994-b829cc1ab44a?auto=format&fit=crop&q=80&w=800" 
+                             alt="Geology Detail"
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                        <!-- Primary -->
+                        <img src="https://images.unsplash.com/photo-1533663636733-4f9011740929?auto=format&fit=crop&q=80&w=800" 
+                             alt="Museum of Geology" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:opacity-0">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-widest z-10">Competition</div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl mb-2 group-hover:underline decoration-1 underline-offset-4">Museum of Geology</h3>
+                        <p class="text-gray-500 font-light text-sm mb-4 line-clamp-2">Carved from stone at Sadahalli Quarry to narrate the story of earth and time.</p>
+                        <a href="https://www.behance.net/gallery/239595229/Museum-of-Geology-Sadahalli-Quarry" target="_blank" class="inline-flex items-center text-xs font-bold tracking-widest uppercase hover:text-gray-600 transition-colors">
+                            View on Behance <i class="ph ph-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 04 -->
+                <article class="project-card group reveal">
+                    <div class="overflow-hidden aspect-[4/3] bg-gray-200 mb-6 relative">
+                         <!-- Secondary -->
+                        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&q=80&w=800" 
+                             alt="Mall Detail"
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                        <!-- Primary -->
+                        <img src="https://images.unsplash.com/photo-1519567241046-7f570eee3d9f?auto=format&fit=crop&q=80&w=800" 
+                             alt="Urban Nexus" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:opacity-0">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-widest z-10">Mixed-Use</div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl mb-2 group-hover:underline decoration-1 underline-offset-4">Urban Nexus</h3>
+                        <p class="text-gray-500 font-light text-sm mb-4 line-clamp-2">Contemporary mall with offices arranged around a central light-filled atrium.</p>
+                        <a href="https://www.behance.net/gallery/239604235/Urban-Nexus-Shopping-Mall-with-Offices" target="_blank" class="inline-flex items-center text-xs font-bold tracking-widest uppercase hover:text-gray-600 transition-colors">
+                            View on Behance <i class="ph ph-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 05 -->
+                <article class="project-card group reveal">
+                    <div class="overflow-hidden aspect-[4/3] bg-gray-200 mb-6 relative">
+                        <!-- Secondary -->
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800" 
+                             alt="Beach Detail"
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                        <!-- Primary -->
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800" 
+                             alt="Seashell Beach Café" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:opacity-0">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-widest z-10">Hospitality</div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl mb-2 group-hover:underline decoration-1 underline-offset-4">Seashell Beach Café</h3>
+                        <p class="text-gray-500 font-light text-sm mb-4 line-clamp-2">Organic form exploring lightness and openness, inspired by seashell geometry.</p>
+                        <a href="https://www.behance.net/gallery/239701987/BEACH-CAFE-Conceptual-Design" target="_blank" class="inline-flex items-center text-xs font-bold tracking-widest uppercase hover:text-gray-600 transition-colors">
+                            View on Behance <i class="ph ph-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 06 -->
+                <article class="project-card group reveal">
+                    <div class="overflow-hidden aspect-[4/3] bg-gray-200 mb-6 relative">
+                        <!-- Secondary -->
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" 
+                             alt="Shell Detail"
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out">
+                        <!-- Primary -->
+                        <img src="https://images.unsplash.com/photo-1525856230327-04664369255a?auto=format&fit=crop&q=80&w=800" 
+                             alt="The Urban Shell" 
+                             class="project-image absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:opacity-0">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-bold uppercase tracking-widest z-10">Conceptual</div>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl mb-2 group-hover:underline decoration-1 underline-offset-4">The Urban Shell</h3>
+                        <p class="text-gray-500 font-light text-sm mb-4 line-clamp-2">A sculptural shell roof concept designed for adaptability in dense urban settings.</p>
+                        <a href="https://www.behance.net/gallery/239703245/THE-URBAN-SHELL" target="_blank" class="inline-flex items-center text-xs font-bold tracking-widest uppercase hover:text-gray-600 transition-colors">
+                            View on Behance <i class="ph ph-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Initiation & Analysis Section -->
+    <section id="initiate" class="py-32 bg-gray-900 text-stone-100 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16">
+                
+                <!-- Left: Form -->
+                <div class="reveal">
+                    <span class="font-mono text-xs text-emerald-400 mb-2 block">/// CLIENT BRIEFING</span>
+                    <h2 class="font-serif text-4xl mb-6">Start Your Project</h2>
+                    <p class="text-gray-400 font-light leading-relaxed mb-10">
+                        Share your initial thoughts and vision. Our AI will help structure your brief, which you can then review and email directly to us to start the conversation.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Contact Info -->
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Name</label>
+                                <input type="text" id="client-name" class="form-input w-full bg-gray-800 border-b border-gray-700 focus:border-white p-3 text-white focus:outline-none transition-colors placeholder-gray-600 font-light" placeholder="Your Name">
+                            </div>
+                            <div>
+                                <label class="block font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Contact No.</label>
+                                <input type="text" id="client-phone" class="form-input w-full bg-gray-800 border-b border-gray-700 focus:border-white p-3 text-white focus:outline-none transition-colors placeholder-gray-600 font-light" placeholder="+91...">
+                            </div>
+                        </div>
+
+                        <!-- Project Details -->
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Project Type & Scheme</label>
+                            <input type="text" id="project-type" class="form-input w-full bg-gray-800 border-b border-gray-700 focus:border-white p-3 text-white focus:outline-none transition-colors placeholder-gray-600 font-light" placeholder="e.g. 4BHK Villa, Commercial Complex, Weekend Home...">
+                        </div>
+
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Site Context & Location</label>
+                            <input type="text" id="project-context" class="form-input w-full bg-gray-800 border-b border-gray-700 focus:border-white p-3 text-white focus:outline-none transition-colors placeholder-gray-600 font-light" placeholder="e.g. 2000 sqft plot in Pune, facing North...">
+                        </div>
+
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Design Style & Thoughts (Initial Idea)</label>
+                            <input type="text" id="project-style" class="form-input w-full bg-gray-800 border-b border-gray-700 focus:border-white p-3 text-white focus:outline-none transition-colors placeholder-gray-600 font-light" placeholder="e.g. Minimalist, Vernacular, Sustainable materials...">
+                        </div>
+
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Detailed Brief / Requirements</label>
+                            <textarea id="project-brief" rows="3" class="form-input w-full bg-gray-800 border-b border-gray-700 focus:border-white p-3 text-white focus:outline-none transition-colors placeholder-gray-600 font-light" placeholder="List specific needs: Open kitchen, courtyard, double height living..."></textarea>
+                        </div>
+
+                        <button onclick="analyzeAndDraft()" class="w-full mt-4 bg-white text-black font-bold uppercase text-xs tracking-widest py-4 hover:bg-emerald-400 transition-colors flex justify-center items-center gap-2 group">
+                            Generate Professional Brief <span class="group-hover:translate-x-1 transition-transform">→</span>
+                        </button>
+                        <p id="analysis-error" class="text-red-400 text-xs hidden font-mono mt-2"></p>
+                    </div>
+                </div>
+
+                <!-- Right: Analysis Output -->
+                <div class="reveal relative bg-gray-800 border border-gray-700 p-8 flex flex-col min-h-[500px]">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent"></div>
+                    
+                    <div class="flex justify-between items-center mb-6">
+                        <p class="font-mono text-xs uppercase text-gray-500">/// ARCHITECTURAL ANALYSIS</p>
+                        <i class="ph ph-cpu text-emerald-400 text-xl animate-pulse"></i>
+                    </div>
+                    
+                    <div id="analysis-content" class="text-gray-300 font-serif leading-loose text-sm flex-grow whitespace-pre-wrap">
+                        <span class="opacity-50 italic">Complete the form to generate a structured brief based on your initial thoughts...</span>
+                    </div>
+
+                    <!-- Actions (Hidden initially) -->
+                    <div id="brief-actions" class="hidden mt-6 pt-6 border-t border-gray-700">
+                        <p class="text-xs text-gray-400 mb-4">Review the analysis above. Click below to open your email client with this brief attached.</p>
+                        <button onclick="sendToTrovian()" class="w-full bg-emerald-600 text-white font-bold uppercase text-xs tracking-widest py-3 hover:bg-emerald-500 transition-colors flex justify-center items-center gap-2">
+                            <i class="ph ph-paper-plane-right text-lg"></i> Open Email Draft
+                        </button>
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div id="analysis-loading" class="hidden absolute inset-0 bg-gray-800/90 backdrop-blur-sm flex flex-col items-center justify-center gap-4 z-20">
+                        <div class="flex gap-2">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full typing-dot"></div>
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full typing-dot"></div>
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full typing-dot"></div>
+                        </div>
+                        <p class="font-mono text-xs text-emerald-400 tracking-widest uppercase">Synthesizing Brief...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Philosophy -->
+    <section id="about" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+                
+                <!-- Intro -->
+                <div class="reveal">
+                    <span class="font-mono text-xs text-gray-400 mb-2 block">/// PROFILE</span>
+                    <h2 class="font-serif text-4xl mb-8 text-gray-900">About the Practice</h2>
+                    <p class="text-gray-600 leading-loose mb-6 text-lg font-light">
+                        Established in 2022, <strong class="text-black font-normal">Trovian by Archi Trove</strong> is the design practice of Talha Khan. 
+                        We focus on cultural architecture, interior spaces, and experimental concepts. 
+                        Our approach bridges the gap between strong conceptual frameworks and buildable reality, 
+                        always prioritizing context and clarity.
+                    </p>
+                    <div class="h-px w-20 bg-black my-8"></div>
+                    
+                    <!-- Skills -->
+                    <div>
+                        <h4 class="uppercase tracking-widest text-[10px] font-bold mb-6 text-gray-400">Capabilities</h4>
+                        <div class="grid grid-cols-2 gap-y-4 gap-x-8">
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-buildings text-lg"></i>
+                                <span class="text-sm">Architectural Design</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-armchair text-lg"></i>
+                                <span class="text-sm">Interior Design</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-lightbulb text-lg"></i>
+                                <span class="text-sm">Concept Development</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-cube-transparent text-lg"></i>
+                                <span class="text-sm">3D Visualization</span>
+                            </div>
+                        </div>
+
+                        <h4 class="uppercase tracking-widest text-[10px] font-bold mb-4 mt-10 text-gray-400">Toolkit</h4>
+                        <div class="flex gap-6 text-2xl text-gray-800">
+                            <div class="group relative cursor-help">
+                                <i class="ph ph-cube"></i> 
+                                <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Revit</span>
+                            </div>
+                            <div class="group relative cursor-help">
+                                <i class="ph ph-paint-brush"></i>
+                                <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Adobe Suite</span>
+                            </div>
+                            <div class="group relative cursor-help">
+                                <i class="ph ph-image"></i>
+                                <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">D5 Render</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Philosophy -->
+                <div class="bg-stone-50 p-10 md:p-14 border-l-2 border-black reveal shadow-sm">
+                    <h3 class="font-serif text-3xl mb-8">Design Philosophy</h3>
+                    <ul class="space-y-8">
+                        <li class="flex items-start group">
+                            <i class="ph ph-compass text-2xl mt-1 mr-6 text-gray-300 group-hover:text-black transition-colors"></i>
+                            <div>
+                                <h4 class="font-bold text-xs uppercase tracking-widest mb-2">Context-Driven</h4>
+                                <p class="text-gray-500 text-sm leading-relaxed">Responsive architectural solutions that respect their environment and climate.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <i class="ph ph-book-open text-2xl mt-1 mr-6 text-gray-300 group-hover:text-black transition-colors"></i>
+                            <div>
+                                <h4 class="font-bold text-xs uppercase tracking-widest mb-2">Narrative Based</h4>
+                                <p class="text-gray-500 text-sm leading-relaxed">Cultural storytelling woven intricately into the built form.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <i class="ph ph-tree text-2xl mt-1 mr-6 text-gray-300 group-hover:text-black transition-colors"></i>
+                            <div>
+                                <h4 class="font-bold text-xs uppercase tracking-widest mb-2">Landscape Integration</h4>
+                                <p class="text-gray-500 text-sm leading-relaxed">Blurring the boundaries between the natural landscape and built structure.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gemini Feature 2: Ask Trovian (Compact) -->
+    <section class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <h2 class="font-serif text-3xl text-center mb-10">Quick Inquiries</h2>
+            <div class="bg-gray-50 p-8 rounded-sm border border-gray-100 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-gray-500">Ask Trovian AI</h3>
+                </div>
+                <div id="chat-history" class="h-32 overflow-y-auto text-sm space-y-3 mb-4 pr-2 scrollbar-thin">
+                    <div class="bg-white p-3 border border-gray-100 text-gray-600 rounded-br-lg rounded-tr-lg rounded-bl-lg shadow-sm">
+                        Have a question about my work or availability? Ask me here.
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="ask-input" placeholder="e.g. Do you handle commercial interiors?" 
+                            class="flex-1 bg-white border border-gray-200 p-3 text-sm focus:outline-none focus:border-black transition-colors">
+                    <button onclick="askTrovian()" class="bg-black text-white px-6 hover:bg-gray-800 transition-colors">
+                        <i class="ph ph-paper-plane-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Details -->
+    <section class="py-20 bg-black text-white text-center">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <p class="font-serif text-3xl md:text-4xl mb-8">Ready to build something iconic?</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-sm tracking-widest uppercase">
+                <a href="mailto:Talhakhan3862@gmail.com" class="hover:text-gray-400 transition-colors">Talhakhan3862@gmail.com</a>
+                <a href="tel:+919970516725" class="hover:text-gray-400 transition-colors">+91 9970516725</a>
+            </div>
+            <div class="flex justify-center gap-8 mt-12 text-2xl">
+                <a href="https://www.instagram.com/archi.trove" class="hover:text-gray-400 transition-colors"><i class="ph ph-instagram-logo"></i></a>
+                <a href="https://www.linkedin.com/in/talha-khan-05b801250" class="hover:text-gray-400 transition-colors"><i class="ph ph-linkedin-logo"></i></a>
+                <a href="https://www.behance.net/talhakhan291" class="hover:text-gray-400 transition-colors"><i class="ph ph-behance-logo"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-gray-600 py-12 border-t border-gray-900 text-center">
+        <p class="font-serif text-xl text-white tracking-widest mb-2">TROVIAN</p>
+        <p class="text-[10px] uppercase tracking-widest mb-4">by Archi Trove | Curate . Create . Captivate</p>
+        <p class="text-[10px] opacity-50">&copy; 2022-2025 Curated by Talha Khan</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // API Configuration
+        const apiKey = ""; // System provides this
+        let generatedBriefBody = ""; // Store for email
+        
+        // --- Feature 1: Brief Analyzer Logic ---
+        async function analyzeAndDraft() {
+            const name = document.getElementById('client-name').value;
+            const phone = document.getElementById('client-phone').value;
+            const type = document.getElementById('project-type').value;
+            const context = document.getElementById('project-context').value;
+            const style = document.getElementById('project-style').value;
+            const brief = document.getElementById('project-brief').value;
+            
+            const outputDiv = document.getElementById('analysis-content');
+            const loadingDiv = document.getElementById('analysis-loading');
+            const actionsDiv = document.getElementById('brief-actions');
+            const errorDiv = document.getElementById('analysis-error');
+
+            if (!name || !type || !brief) {
+                errorDiv.innerText = "Please fill in Name, Project Type, and Brief.";
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            errorDiv.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+            actionsDiv.classList.add('hidden');
+            
+            // Construct Prompt
+            const prompt = `
+                You are a Senior Principal Architect acting as an assistant for Trovian by Archi Trove.
+                
+                Client Input:
+                - Name: ${name}
+                - Project: ${type}
+                - Context: ${context}
+                - Style/Initial Thoughts: ${style}
+                - Detailed Requirements: ${brief}
+
+                Task:
+                1. Create a structured "Project Vision Brief" that summarizes their idea professionally.
+                2. Analyze the requirements and suggest 2 architectural concepts/approaches that would fit this brief creatively.
+                3. Keep the tone professional, visionary, and high-end.
+                4. Output Structure:
+                   **Project Vision Summary**
+                   [Summary text]
+                   
+                   **Proposed Design Directions**
+                   1. [Concept 1 Name]: [Description]
+                   2. [Concept 2 Name]: [Description]
+
+                   **Technical Considerations**
+                   [Bullet points based on context]
+            `;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                const data = await response.json();
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Analysis failed. Please try again.";
+                
+                // Format for display
+                outputDiv.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white block mt-4 mb-2 text-lg">$1</strong>').replace(/\n/g, '<br>');
+                
+                // Store for Email (Explicitly including Client Thoughts)
+                generatedBriefBody = `
+NEW PROJECT INQUIRY - SENT VIA TROVIAN WEBSITE
+
+--- CLIENT INFORMATION ---
+Name: ${name}
+Phone: ${phone}
+
+--- INITIAL THOUGHTS & REQUIREMENTS ---
+Project Type: ${type}
+Location/Context: ${context}
+Design Style/Thought Process: ${style}
+Detailed Brief: ${brief}
+
+--- AI GENERATED ANALYSIS (FOR REFERENCE) ---
+${text}
+                `;
+
+                actionsDiv.classList.remove('hidden');
+
+            } catch (err) {
+                console.error(err);
+                outputDiv.innerText = "Connection to AI failed. Please check your internet connection.";
+            } finally {
+                loadingDiv.classList.add('hidden');
+            }
+        }
+
+        function sendToTrovian() {
+            if(!generatedBriefBody) return;
+            const subject = "Project Inquiry: " + document.getElementById('project-type').value + " - " + document.getElementById('client-name').value;
+            const mailtoLink = `mailto:Talhakhan3862@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(generatedBriefBody)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // --- Feature 2: Ask Trovian Logic ---
+        async function askTrovian() {
+            const inputField = document.getElementById('ask-input');
+            const chatHistory = document.getElementById('chat-history');
+            const question = inputField.value;
+            
+            if (!question) return;
+
+            // Add user message
+            chatHistory.innerHTML += `<div class="bg-gray-800 text-white p-3 rounded-bl-lg rounded-tl-lg rounded-tr-lg ml-auto max-w-[90%] mb-3 text-right shadow-sm">${question}</div>`;
+            inputField.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Add placeholder loading
+            const loadingId = 'loading-' + Date.now();
+            chatHistory.innerHTML += `<div id="${loadingId}" class="bg-white p-3 border border-gray-100 text-gray-400 rounded-br-lg rounded-tr-lg rounded-bl-lg mb-3 max-w-[90%] italic text-xs">Thinking...</div>`;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            const contextData = `
+                Name: Talha Khan. Firm: Trovian by Archi Trove (Est. 2022).
+                Contact: Talhakhan3862@gmail.com, +91 9970516725.
+                Location: India.
+                Tagline: Curate . Create . Captivate
+                Skills: Revit, D5 Render, Adobe Suite, Arch Design, Interior.
+                Projects: Heritage Centre, 4BHK Villa, Geology Museum (Sadahalli), Urban Nexus Mall, Beach Cafe.
+                Philosophy: Context-driven, Narrative-based.
+            `;
+
+            const prompt = `
+                Context: ${contextData}
+                User Question: ${question}
+                Answer as Trovian's assistant. Keep it short (1 sentence).
+            `;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                const data = await response.json();
+                const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Please contact Talha directly.";
+                
+                document.getElementById(loadingId).remove();
+                chatHistory.innerHTML += `<div class="bg-white p-3 border border-gray-100 text-gray-800 rounded-br-lg rounded-tr-lg rounded-bl-lg mb-3 max-w-[90%] shadow-sm">${answer}</div>`;
+            } catch (err) {
+                document.getElementById(loadingId).remove();
+                chatHistory.innerHTML += `<div class="bg-red-50 text-red-500 p-3 rounded-br-lg rounded-tr-lg rounded-bl-lg mb-3 max-w-[90%]">Error connecting.</div>`;
+            }
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        document.getElementById('ask-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') askTrovian();
+        });
+
+        // --- UI Interactions ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+            });
+        });
+
+        reveal();
+    </script>
+</body>
+</html>
